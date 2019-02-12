@@ -10,9 +10,23 @@ namespace ZookeeperDemo
     {
         public void Process(WatchedEvent @event)
         {
-            if (@event.Type == EventType.NodeDataChanged)
+            switch (@event.Type)
             {
-                Console.WriteLine("Node节点下数据发生改变,已经触发了" + @event.Type + "事件！");
+                case EventType.NodeChildrenChanged:
+                    Console.WriteLine("ZNode下子ZNode改变触发了" + @event.Type + "事件！");
+                    break;
+                case EventType.NodeCreated:
+                    Console.WriteLine("新建ZNode触发了" + @event.Type + "事件！");
+                    break;
+                case EventType.NodeDataChanged:
+                    Console.WriteLine("ZNode节点下数据发生改变触发了" + @event.Type + "事件！");
+                    break;
+                case EventType.NodeDeleted:
+                    Console.WriteLine("删除ZNode节点经触发了" + @event.Type + "事件！");
+                    break;
+                default:
+                    Console.WriteLine("没有任何改变触发了" + @event.Type + "事件！");
+                    break;
             }
         }
     }
