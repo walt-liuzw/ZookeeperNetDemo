@@ -10,10 +10,10 @@ namespace ZookeeperDemo
     {
         public void Process(WatchedEvent @event)
         {
-            //if (@event.Type == EventType.NodeDataChanged)
-            //{
-                Console.WriteLine("已经触发了" + @event.Type + "事件！");
-            //}
+            if (@event.Type == EventType.NodeDataChanged)
+            {
+                Console.WriteLine("Node节点下数据发生改变,已经触发了" + @event.Type + "事件！");
+            }
         }
     }
 }

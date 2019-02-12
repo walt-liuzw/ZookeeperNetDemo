@@ -6,3 +6,12 @@ c:\users\geffzhang\documents\visual studio 2010\Projects\ZookeeperDemo\Zookeeper
 c:\users\geffzhang\documents\visual studio 2010\Projects\ZookeeperDemo\ZookeeperDemo\obj\x86\Debug\ZookeeperDemo.csprojResolveAssemblyReference.cache
 c:\users\geffzhang\documents\visual studio 2010\Projects\ZookeeperDemo\ZookeeperDemo\obj\x86\Debug\ZookeeperDemo.exe
 c:\users\geffzhang\documents\visual studio 2010\Projects\ZookeeperDemo\ZookeeperDemo\obj\x86\Debug\ZookeeperDemo.pdb
+G:\GitHub\ZookeeperNetDemo\ZookeeperDemo\ZookeeperDemo\bin\Debug\ZookeeperDemo.exe
+G:\GitHub\ZookeeperNetDemo\ZookeeperDemo\ZookeeperDemo\bin\Debug\ZookeeperDemo.pdb
+G:\GitHub\ZookeeperNetDemo\ZookeeperDemo\ZookeeperDemo\bin\Debug\log4net.dll
+G:\GitHub\ZookeeperNetDemo\ZookeeperDemo\ZookeeperDemo\bin\Debug\ZooKeeperNet.dll
+G:\GitHub\ZookeeperNetDemo\ZookeeperDemo\ZookeeperDemo\bin\Debug\log4net.xml
+G:\GitHub\ZookeeperNetDemo\ZookeeperDemo\ZookeeperDemo\obj\x86\Debug\ZookeeperDemo.csprojResolveAssemblyReference.cache
+G:\GitHub\ZookeeperNetDemo\ZookeeperDemo\ZookeeperDemo\obj\x86\Debug\ZookeeperDemo.csproj.CoreCompileInputs.cache
+G:\GitHub\ZookeeperNetDemo\ZookeeperDemo\ZookeeperDemo\obj\x86\Debug\ZookeeperDemo.exe
+G:\GitHub\ZookeeperNetDemo\ZookeeperDemo\ZookeeperDemo\obj\x86\Debug\ZookeeperDemo.pdb
