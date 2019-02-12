@@ -17,14 +17,15 @@ namespace ZookeeperDemo
             using (ZooKeeper zk = new ZooKeeper("127.0.0.1:2181", new TimeSpan(0, 0, 0, 50000), new Watcher()))
             {
                 var stat = zk.Exists("/root", true);//需要watcher监控
-                CreateOrUpdateNode(zk: zk, path: "/root", data: "mydata", mode: CreateMode.Persistent);
+                CreateOrUpdateNode(zk: zk, path: "/root", data: "mydata", mode: CreateMode.Persistent);//即客户端shutdown了也不会消失
 
-                CreateOrUpdateNode(zk, "/root/childone", "childone", CreateMode.Persistent);
+
+                CreateOrUpdateNode(zk, "/root/childone", "childone", CreateMode.Persistent);//即客户端shutdown了也不会消失
 
                 //var client = RetryHelper.Make();
                 //client.Execute(() =>
                 //{
-                    //do biz logic
+                //do biz logic
                 //});
 
                 //取得/root节点下的子节点名称,返回List<string> 
