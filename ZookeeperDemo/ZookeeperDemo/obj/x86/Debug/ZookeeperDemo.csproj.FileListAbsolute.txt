@@ -1,0 +1,8 @@
+c:\users\geffzhang\documents\visual studio 2010\Projects\ZookeeperDemo\ZookeeperDemo\bin\Debug\ZookeeperDemo.exe
+c:\users\geffzhang\documents\visual studio 2010\Projects\ZookeeperDemo\ZookeeperDemo\bin\Debug\ZookeeperDemo.pdb
+c:\users\geffzhang\documents\visual studio 2010\Projects\ZookeeperDemo\ZookeeperDemo\bin\Debug\log4net.dll
+c:\users\geffzhang\documents\visual studio 2010\Projects\ZookeeperDemo\ZookeeperDemo\bin\Debug\ZooKeeperNet.dll
+c:\users\geffzhang\documents\visual studio 2010\Projects\ZookeeperDemo\ZookeeperDemo\bin\Debug\log4net.xml
+c:\users\geffzhang\documents\visual studio 2010\Projects\ZookeeperDemo\ZookeeperDemo\obj\x86\Debug\ZookeeperDemo.csprojResolveAssemblyReference.cache
+c:\users\geffzhang\documents\visual studio 2010\Projects\ZookeeperDemo\ZookeeperDemo\obj\x86\Debug\ZookeeperDemo.exe
+c:\users\geffzhang\documents\visual studio 2010\Projects\ZookeeperDemo\ZookeeperDemo\obj\x86\Debug\ZookeeperDemo.pdb
