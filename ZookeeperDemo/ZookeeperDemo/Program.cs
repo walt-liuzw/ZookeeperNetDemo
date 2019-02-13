@@ -13,7 +13,6 @@ namespace ZookeeperDemo
         {
 
             //创建一个Zookeeper实例，第一个参数为目标服务器地址和端口，第二个参数为Session超时时间，第三个为节点变化时的回调方法 
-            //13.8888889小时的session超时（TODO：这个zookeeper是否只存活这个时间？）
             using (ZooKeeper zk = new ZooKeeper("127.0.0.1:2181", new TimeSpan(0, 0, 0, 50000), new Watcher()))
             {
                 var stat = zk.Exists("/root", true);//需要watcher监控
@@ -23,6 +22,10 @@ namespace ZookeeperDemo
                 CreateOrUpdateNode(zk, "/root/childone", "childone", CreateMode.Persistent);//即客户端shutdown了也不会消失
 
                 //var client = RetryHelper.Make();
+                //client.CreateNodeStructure = () => { };
+                //client.FixConnectionLossAction = () => { };
+                //client.IfErrorThen = () => { };
+
                 //client.Execute(() =>
                 //{
                 //do biz logic
