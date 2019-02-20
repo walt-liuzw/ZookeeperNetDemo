@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using ZooKeeperNet;
 
 namespace ZookeeperDemo
 {
@@ -13,6 +14,7 @@ namespace ZookeeperDemo
         public Action IfErrorThen;
         public Action CreateNodeStructure;
         public Action FixConnectionLossAction;
+        public Func<bool> FixSessionExpireAction;
 
         public static RetryHelper Make()
         {
@@ -57,6 +59,21 @@ namespace ZookeeperDemo
                         Interlocked.Decrement(ref signal);
                     }
 
+                    continue;
+                }
+                catch (KeeperException.SessionExpiredException ex)
+                {
+                    Console.WriteLine("retry helper SessionExpiredException: " + ex.Message);
+                    bool result = false;
+                    if (FixSessionExpireAction != null)
+                    {
+                        result = FixSessionExpireAction();
+                    }
+
+                    if (result)
+                    {
+                        break;
+                    }
                     continue;
                 }
                 catch (Exception ex)

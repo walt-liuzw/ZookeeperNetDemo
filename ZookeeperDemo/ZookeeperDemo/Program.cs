@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using Org.Apache.Zookeeper.Data;
 using ZooKeeperNet;
 
@@ -13,23 +14,16 @@ namespace ZookeeperDemo
         {
 
             //创建一个Zookeeper实例，第一个参数为目标服务器地址和端口，第二个参数为Session超时时间，第三个为节点变化时的回调方法 
-            using (ZooKeeper zk = new ZooKeeper("127.0.0.1:2181", new TimeSpan(0, 0, 0, 50000), new Watcher()))
+            using (ZooKeeper zk = new ZooKeeper("127.0.0.1:2181", new TimeSpan(0, 0, 0, 20), new Watcher()))
             {
                 var stat = zk.Exists("/root", true);//需要watcher监控
-                CreateOrUpdateNode(zk: zk, path: "/root", data: "mydata", mode: CreateMode.Persistent);//即客户端shutdown了也不会消失
+                //CreateOrUpdateNode(zk: zk, path: "/root", data: "mydata", mode: CreateMode.Persistent);//即客户端shutdown了也不会消失
+                //CreateOrUpdateNode(zk, "/root/childone", "childone", CreateMode.Persistent);//即客户端shutdown了也不会消失
+                
+                var seconds = GetNodeExpireSeconds(zk, "/root/tempNode", "tempNode", CreateMode.Ephemeral);
 
+                CreateOrUpdateNode(zk, "/root/tempNode", "tempNode", CreateMode.Ephemeral);//临时节点
 
-                CreateOrUpdateNode(zk, "/root/childone", "childone", CreateMode.Persistent);//即客户端shutdown了也不会消失
-
-                //var client = RetryHelper.Make();
-                //client.CreateNodeStructure = () => { };
-                //client.FixConnectionLossAction = () => { };
-                //client.IfErrorThen = () => { };
-
-                //client.Execute(() =>
-                //{
-                //do biz logic
-                //});
 
                 //取得/root节点下的子节点名称,返回List<string> 
                 var childrenNodes = zk.GetChildren("/root", true);
@@ -41,6 +35,47 @@ namespace ZookeeperDemo
             }
 
         }
+
+        private static DateTime GetNodeExpireSeconds(ZooKeeper zk, string path, string data, CreateMode mode)
+        {
+            long start = DateTime.Now.Ticks;
+            var checkIsExist = zk.Exists(path, false);
+            if (checkIsExist == null)
+            {
+                //创建节点path，数据为data，不进行ACL权限控制，CreateMode为mode
+                zk.Create(path, data.GetBytes(), Ids.OPEN_ACL_UNSAFE, mode);
+                start = DateTime.Now.Ticks;
+            }
+            checkIsExist= zk.Exists(path, false);
+
+            var client = RetryHelper.Make();
+            client.FixSessionExpireAction = () => {
+                try
+                {
+                    using (zk = new ZooKeeper("127.0.0.1:2181", new TimeSpan(0, 0, 0, 20), new Watcher()))
+                    {
+                        checkIsExist = zk.Exists(path, false);
+                    }
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            };
+            while (checkIsExist != null)
+            {
+                client.Execute(() =>
+                {
+                    checkIsExist = zk.Exists(path, false);
+                    Thread.Sleep(21000);
+                });
+                
+            }
+
+            return DateTime.FromBinary(DateTime.Now.Ticks - start);
+        }
+
         private static void CreateOrUpdateNode(ZooKeeper zk, string path, string data, CreateMode mode)
         {
             var checkIsExist = zk.Exists(path, false);
