@@ -14,12 +14,18 @@ namespace ZookeeperDemo
         {
 
             //创建一个Zookeeper实例，第一个参数为目标服务器地址和端口，第二个参数为Session超时时间，第三个为节点变化时的回调方法 
-            using (ZooKeeper zk = new ZooKeeper("127.0.0.1:2181", new TimeSpan(0, 0, 0, 20), new Watcher()))
+            using (ZooKeeper zk = new ZooKeeper("127.0.0.1:2181", new TimeSpan(0, 0, 0, 50000), new Watcher()))
             {
                 var stat = zk.Exists("/root", true);//需要watcher监控
-                //CreateOrUpdateNode(zk: zk, path: "/root", data: "mydata", mode: CreateMode.Persistent);//即客户端shutdown了也不会消失
-                //CreateOrUpdateNode(zk, "/root/childone", "childone", CreateMode.Persistent);//即客户端shutdown了也不会消失
-                
+                CreateOrUpdateNode(zk, "/root/lock", "lock", CreateMode.Persistent);
+                CreateOrUpdateNode(zk, "/root/lock/lock1", "lock1", CreateMode.EphemeralSequential);//即客户端shutdown了也不会消失
+                CreateOrUpdateNode(zk, "/root/lock/lock1", "lock2", CreateMode.EphemeralSequential);//即客户端shutdown了也不会消失
+                var lockBytes = zk.GetChildren("/root/lock", true, null);
+                //var lockData = BytesToString(lockBytes);
+
+
+
+
                 var seconds = GetNodeExpireSeconds(zk, "/root/tempNode", "tempNode", CreateMode.Ephemeral);
 
                 CreateOrUpdateNode(zk, "/root/tempNode", "tempNode", CreateMode.Ephemeral);//临时节点
